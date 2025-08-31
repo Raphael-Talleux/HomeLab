@@ -22,17 +22,16 @@ for entry in "${USERS[@]}"; do
     if [ -n "$MAIL_USER" ] && [ -n "$MAIL_PASSWORD" ]; then
         # Check user is already set
         if ! id "$MAIL_USER" &>/dev/null; then
+            
             useradd -m -s /bin/bash "$MAIL_USER"
+
+            # Define password
+            echo "$MAIL_USER:$MAIL_PASSWORD" | chpasswd
+
+            # Create Maildir directories and set ownership
+            mkdir -p /home/"$MAIL_USER"/Maildir/{cur,new,tmp}
+            chown -R "$MAIL_USER:$MAIL_USER" /home/"$MAIL_USER"/Maildir
         fi
-
-        # Define password
-        echo "$MAIL_USER:$MAIL_PASSWORD" | chpasswd
-
-        # Create Maildir directories and set ownership
-        mkdir -p /home/"$MAIL_USER"/Maildir/{cur,new,tmp}
-        chown -R "$MAIL_USER:$MAIL_USER" /home/"$MAIL_USER"/Maildir
-
-        echo "Utilisateur $MAIL_USER créé avec succès."
     fi
 done
 
