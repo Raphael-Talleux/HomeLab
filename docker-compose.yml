@@ -1,9 +1,9 @@
 services:
 
-  # Mail server service with dovecot and postfix
-  mail-server:
-    build: .
-    container_name: mail_server
+  # MTA server service running with postfix
+  mta-server:
+    build: ./mta-server
+    container_name: mta_server
     environment:
       - MAIL_HOSTNAME=${MAIL_HOSTNAME}
     ports:
