@@ -1,0 +1,12 @@
+services:
+
+  # Mail server service with dovecot and postfix
+  mail-server:
+    build: .
+    container_name: mail_server
+    environment:
+      - MAIL_HOSTNAME=${MAIL_HOSTNAME}
+    ports:
+      - "25:25"    # SMTP
+      - "587:587"  # SMTP Submission
+      - "993:993"  # IMAP
