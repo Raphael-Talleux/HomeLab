@@ -25,8 +25,8 @@ EXPOSE 587
 EXPOSE 993
 
 # Initialisation script
-COPY init_container.sh /init_container.sh
-RUN chmod +x /init_container.sh
+COPY init_mta.sh /init_mta.sh
+RUN chmod +x /init_mta.sh
 
 # Startup command
-CMD ["/init_container.sh"]
+CMD ["/init_mta.sh"]
