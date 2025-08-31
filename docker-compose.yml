@@ -9,4 +9,16 @@ services:
     ports:
       - "25:25"    # SMTP
       - "587:587"  # SMTP Submission
+    volumes:
+      - ./mails-data:/home
+
+
+  imap-server:
+    build: ./imap-server
+    container_name: imap-server
+    environment:
+      - MAIL_HOSTNAME=${MAIL_HOSTNAME}
+    ports:
       - "993:993"  # IMAP
+    volumes:
+      - ./mails-data:/home
