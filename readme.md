@@ -42,7 +42,7 @@ Right now:
 Clone the repo:
 
 ```bash
-git clone
+git clone https://github.com/Raphael-Talleux/HomeLab.git
 cd HomeLab
 ```
 
