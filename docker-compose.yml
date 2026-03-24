@@ -36,15 +36,13 @@ services:
       - ./mails-data:/home
 
 
-  imap-server:
-    build: ./imap-server
-    container_name: imap-server
-    environment:
-      - MAIL_HOSTNAME=${MAIL_HOSTNAME}
-    ports:
-      - "993:993"  # IMAP
-    volumes:
-      - ./mails-data:/home
+#  imap-server:
+#    build: ./imap-server
+#    container_name: imap-server
+#    ports:
+#      - "993:993"  # IMAP
+#    volumes:
+#      - ./mails-data:/home
 
 
 
