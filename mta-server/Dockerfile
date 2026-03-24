@@ -19,9 +19,9 @@ COPY config/dovecot/conf.d/ /etc/dovecot/conf.d/
 
 # SMTP (Mail Transfer)
 EXPOSE 25 
-# SMTP Submission (authenticated)
 EXPOSE 587
 # IMAP (Incoming Mail)
+EXPOSE 143
 EXPOSE 993
 
 # Initialisation script

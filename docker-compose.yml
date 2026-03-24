@@ -1,5 +1,28 @@
 services:
 
+  mariadb:
+    build: ./mariaDB
+    container_name: homelab-mariadb
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: 123
+    volumes:
+      - ./.db-data:/var/lib/mysql/
+    networks:
+      - homelab-network
+
+  adminer:
+    build: ./adminer
+    container_name: homelab-adminer
+    restart: always
+    networks:
+      - homelab-network
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mariadb
+
+
   # MTA server service running with postfix
   mta-server:
     build: ./mta-server
@@ -22,3 +45,9 @@ services:
       - "993:993"  # IMAP
     volumes:
       - ./mails-data:/home
+
+
+
+networks:
+  homelab-network:
+    driver: bridge
