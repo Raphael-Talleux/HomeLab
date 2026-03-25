@@ -24,18 +24,18 @@ services:
 
 
   # MTA server service running with postfix
-  mta-server:
-    build: ./mta-server
-    container_name: mta_server
-    environment:
-      - MAIL_HOSTNAME=${MAIL_HOSTNAME}
-    ports:
-      - "25:25"    # SMTP (intra-server)
-      - "587:587"  # SMTP TLS/SSL (alt 465)
-      - "143:143"  # IMAP
-      - "993:993"  # IMAPS
-    volumes:
-      - ./mails-data:/home
+  # mta-server:
+  #   build: ./mta-server
+  #   container_name: mta_server
+  #   environment:
+  #     - MAIL_HOSTNAME=${MAIL_HOSTNAME}
+  #   ports:
+  #     - "25:25"    # SMTP (intra-server)
+  #     - "587:587"  # SMTP TLS/SSL (alt 465)
+  #     - "143:143"  # IMAP
+  #     - "993:993"  # IMAPS
+  #   volumes:
+  #     - ./.mails-data:/home
 
 
 #  imap-server:
