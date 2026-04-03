@@ -22,6 +22,18 @@ services:
     depends_on:
       - mariadb
 
+  imap-server:
+    build: ./imap-server
+    container_name: homelab-imap-server
+    restart: always
+    networks:
+      - homelab-network
+    ports:
+      - "143:143" # IMAP
+      - "993:993" # IMAPS (TLS/SSL)
+    depends_on:
+      - mariadb
+
 
   # MTA server service running with postfix
   # mta-server:
@@ -36,16 +48,6 @@ services:
   #     - "993:993"  # IMAPS
   #   volumes:
   #     - ./.mails-data:/home
-
-
-#  imap-server:
-#    build: ./imap-server
-#    container_name: imap-server
-#    ports:
-#      - "993:993"  # IMAP
-#    volumes:
-#      - ./mails-data:/home
-
 
 
 networks:
