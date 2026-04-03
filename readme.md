@@ -4,7 +4,6 @@ This repo is about my personal homelab adventure.
 I’m building and running self-hosted services for fun, learning, and to move away from GAFAM.  
 If you’re curious about doing the same, feel free to dig in.
 
----
 
 ## Why?
 
@@ -13,9 +12,6 @@ If you’re curious about doing the same, feel free to dig in.
 - **Customization** → tune stuff the way *I* want.  
 - **Pride** → it feels good to build it yourself.  
 
-In short: build something that works, is fast, and secure — by actually understanding it.
-
----
 
 ## Security
 
@@ -24,7 +20,6 @@ I use Docker to isolate services and control external access.
 
 It is crucial to keep containers that interact with the outside world up to date.  
 
----
 
 ## What’s inside?
 
@@ -32,10 +27,7 @@ Right now:
 
 - Mail server (Postfix)  
 - IMAP server (Dovecot)  
-- Webmail client (Roundcube)  
-- Password manager (Vault)  
 
----
 
 ## Setup
 
@@ -52,35 +44,61 @@ Then copy the env template:
 cp .env.template .env
 ```
 
-All config is handled by `.env` (no hardcoding here).
+All config is handled by `.env`.
 
----
 
 ## Usage
 
-I’m not writing a Docker tutorial here 😅 — so I assume you already know the basics.  
+### Launch the containers
 
-### Start the mail stack
+To launch the containers with Docker Compose, run the following command:
 
-```bash
-docker compose up -d
+```bash id="tdzrgy"
+docker compose up -d --build
 ```
 
-### Send a local mail
+### Stop the containers
 
-```bash
-echo "message" | mutt -s "subject" you@example.com
+To stop and remove the containers, use this command:
+
+```bash id="1flhlw"
+docker compose down
 ```
 
----
 
-## About me
+### Virtual User Database
 
-Hi, I’m Raphaël.  
-I’m passionate about computing, Linux, and breaking free from GAFAM tools.  
-For example: replacing Windows with Arch Linux, ditching Google’s suite, and hosting my own stuff.  
+You can access the virtual user database using the **Adminer** container. The default port is **8080**.
+Connect via a web browser. Be mindful of port settings if the machine is not on the same network, or in case of a firewall.
 
-I hate not knowing how things work — so I built this project and decided to share it, in case it helps someone else.  
+Connection examples:
 
+* **Localhost**:
+
+  ```plaintext
+  127.0.0.1:8080 or localhost:8080
+  ```
+
+* **Local Network**:
+
+  ```plaintext
+  192.168.1.45:8080
+  ```
+
+### Manage the IMAP server
+
+You can run commands on **Dovecot** via Docker. The easiest way is to get a **bash** shell in the container using Docker EXEC:
+
+```bash id="daxmj7"
+docker exec -it homelab-imap-server bash
+```
+
+Alternatively, you can directly use Docker EXEC to run Dovecot commands. For example, to test authentication for a user:
+
+```bash id="5uxwc3"
+docker exec -it homelab-imap-server doveadm auth test mailuser@host.com
+```
+
+I also created a cheatsheet with the most useful **doveadm** commands. [LINK](#)
 
 
