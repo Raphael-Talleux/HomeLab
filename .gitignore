@@ -2,5 +2,8 @@
 .env
 
 # Docker volume : data persistence
-mails_data
 .db-data
+.mails-data
+
+# debug
+__*
