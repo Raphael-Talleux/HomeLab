@@ -1,8 +1,8 @@
 services:
 
-  mariadb:
-    build: ./mariaDB
-    container_name: homelab-mariadb
+  virtual-users-database:
+    build: ./virtual-users-database
+    container_name: homelab-virtual-users-database
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
@@ -20,7 +20,7 @@ services:
     ports:
       - "8080:8080"
     depends_on:
-      - mariadb
+      - virtual-users-database
 
   imap-server:
     build: ./imap-server
@@ -32,7 +32,7 @@ services:
       - "143:143" # IMAP
       - "993:993" # IMAPS (TLS/SSL)
     depends_on:
-      - mariadb
+      - virtual-users-database
 
 
   # MTA server service running with postfix
