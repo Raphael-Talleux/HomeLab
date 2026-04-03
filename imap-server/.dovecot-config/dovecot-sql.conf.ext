@@ -29,7 +29,7 @@
 # );
 
 # Database driver: mysql, pgsql, sqlite
-#driver = 
+driver = mysql
 
 # Database connection string. This is driver-specific setting.
 #
@@ -71,14 +71,14 @@
 #   connect = host=sql.example.com dbname=virtual user=virtual password=blarg
 #   connect = /etc/dovecot/authdb.sqlite
 #
-#connect =
+connect = host=mariadb dbname=mailserver user=dovecot password=dovecot
 
 # Default password scheme.
 #
 # List of supported schemes is in
 # http://wiki2.dovecot.org/Authentication/PasswordSchemes
 #
-#default_pass_scheme = MD5
+default_pass_scheme = SHA512-CRYPT
 
 # passdb query to retrieve the password. It can return fields:
 #   password - The user's password. This field must be returned.
@@ -111,6 +111,8 @@
 #  SELECT username, domain, password \
 #  FROM users WHERE username = '%n' AND domain = '%d'
 
+password_query = SELECT username AS user, password FROM virtual_users WHERE username = '%u';
+
 # userdb query to retrieve the user information. It can return fields:
 #   uid - System UID (overrides mail_uid setting)
 #   gid - System GID (overrides mail_gid setting)
@@ -130,6 +132,10 @@
 #user_query = \
 #  SELECT home, uid, gid \
 #  FROM users WHERE username = '%n' AND domain = '%d'
+
+user_query = SELECT username AS user, 5000 AS uid, 5000 AS gid, CONCAT('/var/mail/', username) AS home \
+             FROM virtual_users \
+             WHERE username = '%u';
 
 # If you wish to avoid two SQL lookups (passdb + userdb), you can use
 # userdb prefetch instead of userdb sql in dovecot.conf. In that case you'll
