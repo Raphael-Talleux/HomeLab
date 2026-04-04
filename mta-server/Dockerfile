@@ -5,28 +5,20 @@ ENV MAIL_HOSTNAME=default.local
 
 # Install all dependencies
 RUN apt update && \
-    apt install -y postfix dovecot-imapd dovecot-pop3d dovecot-lmtpd mailutils mutt gettext-base && \
+    apt install -y postfix gettext-base && \
     apt clean && \
     rm -rf /var/lib/apt/lists/*
 
 # Copy custom config files
-COPY config/postfix/main /etc/postfix/main.cf.template
+#COPY config/postfix/main /etc/postfix/main.cf.template
 
-COPY config/Muttrc/Muttrc /etc/Muttrc.template
-
-COPY config/dovecot/dovecot.conf /etc/dovecot/dovecot.conf
-COPY config/dovecot/conf.d/ /etc/dovecot/conf.d/
-
-# SMTP (Mail Transfer)
+# SMTP
 EXPOSE 25 
 EXPOSE 587
-# IMAP (Incoming Mail)
-EXPOSE 143
-EXPOSE 993
 
 # Initialisation script
-COPY init_mta.sh /init_mta.sh
-RUN chmod +x /init_mta.sh
+COPY init.sh /init.sh
+RUN chmod +x /init.sh
 
 # Startup command
-CMD ["/init_mta.sh"]
+CMD ["/init.sh"]
