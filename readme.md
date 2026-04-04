@@ -99,6 +99,6 @@ Alternatively, you can directly use Docker EXEC to run Dovecot commands. For exa
 docker exec -it homelab-imap-server doveadm auth test mailuser@host.com
 ```
 
-I also created a cheatsheet with the most useful **doveadm** commands. [LINK](#)
+I also created a cheatsheet with the most useful **doveadm** commands. [LINK](https://github.com/Raphael-Talleux/CheatSheet/blob/master/Mailing/Dovecot%20Commands.md)
 
 
